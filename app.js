@@ -1,5 +1,4 @@
 const express = require('express');
-const {port} = require('./config/default.config')
 const router = require('./router')
 const morgan = require('morgan');
 const cors = require('cors');
@@ -26,7 +25,7 @@ app.use('/api/v1',router)
 app.use(ErrorHandler())
 
 
-
-app.listen(port,()=>{
-    console.log(`Server running at http://localhost:${port}`)
+const PORT = process.env.PORT || 4000
+app.listen(PORT,()=>{
+    console.log(`Server running at http://localhost:${PORT}`)
 })
