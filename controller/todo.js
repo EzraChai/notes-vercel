@@ -34,7 +34,7 @@ exports.getAllTodo = async (req, res, next) => {
             .limit(Number.parseInt(limit)) //取多少条
             .sort({
                 //-1：Descending 1：Ascending
-                createdAt: -1
+                updatedAt: -1
             })
 
         res.status(200).json({
@@ -71,6 +71,21 @@ exports.deleteTodo = async (req, res, next) => {
         await todo.remove();
 
         res.status(204).end();
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.editTodo = async (req, res, next) => {
+    try {
+        const todoOri = req.todo;
+
+        const todo = req.body.todo;
+        todoOri.title = todo.title;
+        todoOri.description = todo.description;
+        todoOri.updatedAt = Date.now()
+        await todoOri.save()
+        res.status(201).json({todo:todoOri});
     } catch (error) {
         next(error)
     }

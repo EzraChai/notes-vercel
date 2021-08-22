@@ -32,7 +32,7 @@ exports.login = [
     validate([
         body('user.email').notEmpty().withMessage("Email cannot be null"),
         body('user.password').notEmpty().withMessage("Password cannot be null"),
-]),
+    ]),
     validate([
         body('user.email').custom(async (email,{req}) => {
             const user = await User.findOne({email}).select(['email','password','username','image'])
@@ -42,7 +42,7 @@ exports.login = [
     validate([
         body('user.password').custom(async (password,{req}) =>{
             const user = req.user;
-            if(MD5(password) !== user.password) Promise.reject('Wrong password');
+            if(MD5(password) !== user.password) return Promise.reject('Wrong password');
         })
     ])
 ]

@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const TodoController = require('../controller/todo');
-const { createTodo,deleteTodo,getTodo } = require('../validator/todo');
+const { createTodo,deleteTodo,getTodo,editTodo } = require('../validator/todo');
 const header = require('../middleware/header');
 
 
 /**
  * create Todo
  */
- router.post('/create',createTodo,header,TodoController.createTodo);
+ router.post('/',createTodo,header,TodoController.createTodo);
 
  /**
  * get All Todos
@@ -20,8 +20,13 @@ const header = require('../middleware/header');
  */
  router.get('/:id',header,getTodo,TodoController.getTodo);
 
+  /**
+ * edit Todo
+ */
+   router.put('/:id',header,editTodo,TodoController.editTodo);
+
    /**
- * get Todo
+ * delete Todo
  */
  router.delete('/:id',header,deleteTodo,TodoController.deleteTodo);
 
