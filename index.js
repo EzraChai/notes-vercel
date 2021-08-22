@@ -1,5 +1,6 @@
 const express = require('express');
-const router = require('./api')
+const todo = require('./api/todo')
+const user = require('./api/user')
 const morgan = require('morgan');
 const cors = require('cors');
 const ErrorHandler = require('./middleware/error-handler')
@@ -18,7 +19,8 @@ app.use(express.json());
 app.use(cors());
 
 
-app.use('/api/v1',router)
+app.use('/api/v1',user)
+app.use('/api/v1',todo)
 
 
 //挂载统一处理服务端错误中间件
